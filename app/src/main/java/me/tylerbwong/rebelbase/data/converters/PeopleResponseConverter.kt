@@ -16,7 +16,7 @@ class PeopleResponseConverter : JsonDeserializer<PeopleResponse> {
 
         response.count = jsonObject[PeopleResponse.COUNT].asInt
 
-        if (jsonObject[PeopleResponse.NEXT] != null) {
+        if (!jsonObject[PeopleResponse.NEXT].isJsonNull) {
             response.next = jsonObject[PeopleResponse.NEXT].asString
         }
 

@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
  * *
  * @version 1.0
  */
-private var apiService: RebelApi? = null
+private var apiService: RebelApi? = getApiService()
 private val CONNECTION_TIMEOUT: Long = 10
 
 /**
@@ -83,8 +83,8 @@ private fun makeOkHttpClient(): OkHttpClient {
  */
 private fun setupGson(): Gson {
     val builder = GsonBuilder()
-    builder.registerTypeAdapter(Person.javaClass, PersonConverter())
-    builder.registerTypeAdapter(PeopleResponse.javaClass, PeopleResponseConverter())
+    builder.registerTypeAdapter(Person::class.java, PersonConverter())
+    builder.registerTypeAdapter(PeopleResponse::class.java, PeopleResponseConverter())
     builder.excludeFieldsWithoutExposeAnnotation()
     return builder.create()
 }

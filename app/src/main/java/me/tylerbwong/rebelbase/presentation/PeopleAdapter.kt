@@ -26,7 +26,6 @@ class PeopleAdapter(people: MutableList<Person>) : RecyclerView.Adapter<PersonCa
     override fun onBindViewHolder(holder: PersonCardViewHolder?, position: Int) {
         var tempPerson: Person = mPeople!![position]
         holder!!.mName!!.text = tempPerson.name
-        System.out.println(position.toString())
     }
 
     override fun getItemCount(): Int {

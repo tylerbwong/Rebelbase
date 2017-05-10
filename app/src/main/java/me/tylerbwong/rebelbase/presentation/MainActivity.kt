@@ -31,12 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         getPeople()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    people ->
-                        mAdapter!!.mPeople!!.addAll(people.results!!)
-                        mAdapter!!.notifyDataSetChanged()
-                }, {
-                    e -> Log.e("", "", e)
+                .subscribe({ person ->
+                    mAdapter!!.mPeople!!.add(person)
+                    mAdapter!!.notifyItemInserted(mAdapter!!.mPeople!!.size - 1)
+                }, { e ->
+                    Log.e("", "", e)
                 })
     }
 }
