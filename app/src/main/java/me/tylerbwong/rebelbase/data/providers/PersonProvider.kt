@@ -13,22 +13,16 @@ import me.tylerbwong.rebelbase.data.providers.api.getApiService
 
 val personApiService: RebelApi? = getApiService()
 
-fun getPerson(personId: Int): Single<Person> {
-    return personApiService!!.getPerson(personId)
-}
+fun getPerson(personId: Int): Single<Person> = personApiService!!.getPerson(personId)
 
-fun getPeopleByPage(page: Int): Observable<PeopleResponse> {
-    return personApiService!!.getPeopleByPage(page)
-            .concatMap { response ->
-                if (response.next == null) {
-                    Observable.just(response)
-                }
-                Observable.just(response).concatWith(getPeopleByPage(page + 1))
+fun getPeopleByPage(page: Int): Observable<PeopleResponse> = personApiService!!.getPeopleByPage(page)
+        .concatMap { response ->
+            if (response.next == null) {
+                Observable.just(response)
             }
-}
+            Observable.just(response).concatWith(getPeopleByPage(page + 1))
+        }
 
-fun getPeople(): Observable<Person> {
-    return getPeopleByPage(1)
-            .map { response -> response.results }
-            .flatMapIterable { people -> people }
-}
+fun getPeople(): Observable<Person> = getPeopleByPage(1)
+        .map { response -> response.results }
+        .flatMapIterable { people -> people }

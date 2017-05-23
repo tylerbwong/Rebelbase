@@ -13,22 +13,16 @@ import me.tylerbwong.rebelbase.data.providers.api.getApiService
 
 val planetApiService: RebelApi? = getApiService()
 
-fun getPlanet(planetId: Int): Single<Planet> {
-    return planetApiService!!.getPlanet(planetId)
-}
+fun getPlanet(planetId: Int): Single<Planet> = planetApiService!!.getPlanet(planetId)
 
-fun getPlanetsByPage(page: Int): Observable<PlanetResponse> {
-    return personApiService!!.getPlanetsByPage(page)
-            .concatMap { response ->
-                if (response.next == null) {
-                    Observable.just(response)
-                }
-                Observable.just(response).concatWith(getPlanetsByPage(page + 1))
+fun getPlanetsByPage(page: Int): Observable<PlanetResponse> = personApiService!!.getPlanetsByPage(page)
+        .concatMap { response ->
+            if (response.next == null) {
+                Observable.just(response)
             }
-}
+            Observable.just(response).concatWith(getPlanetsByPage(page + 1))
+        }
 
-fun getPlanets(): Observable<Planet> {
-    return getPlanetsByPage(1)
-            .map { response -> response.results }
-            .flatMapIterable { planets -> planets }
-}
+fun getPlanets(): Observable<Planet> = getPlanetsByPage(1)
+        .map { response -> response.results }
+        .flatMapIterable { planets -> planets }
