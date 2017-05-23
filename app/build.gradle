@@ -25,6 +25,9 @@ android {
             buildConfigField "String", "SERVER_ENDPOINT", "\"https://swapi.co/\""
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
