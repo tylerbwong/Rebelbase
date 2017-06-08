@@ -12,7 +12,7 @@ import me.tylerbwong.rebelbase.data.models.Person
  */
 class PeopleAdapter(people: MutableList<Person>) : RecyclerView.Adapter<PersonCardViewHolder>() {
 
-    var mPeople: MutableList<Person>? = null
+    var mPeople: MutableList<Person> = ArrayList()
 
     init {
         mPeople = people
@@ -23,13 +23,13 @@ class PeopleAdapter(people: MutableList<Person>) : RecyclerView.Adapter<PersonCa
         return PersonCardViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PersonCardViewHolder?, position: Int) {
-        var tempPerson: Person = mPeople!![position]
-        holder!!.mName.text = tempPerson.name
+    override fun onBindViewHolder(holder: PersonCardViewHolder, position: Int) {
+        val tempPerson: Person = mPeople[position]
+        holder.mName.text = tempPerson.name
         holder.mBirthYear.text = tempPerson.birthYear
     }
 
     override fun getItemCount(): Int {
-        return mPeople!!.size
+        return mPeople.size
     }
 }

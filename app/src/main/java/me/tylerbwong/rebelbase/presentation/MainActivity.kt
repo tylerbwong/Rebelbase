@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         getPeople()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ person ->
-                    mAdapter.mPeople!!.add(person)
-                    mAdapter.notifyItemInserted(mAdapter.mPeople!!.size - 1)
+                    mAdapter.mPeople.add(person)
+                    mAdapter.notifyItemInserted(mAdapter.mPeople.size - 1)
                 }, { e ->
                     Log.e("", "", e)
                 })

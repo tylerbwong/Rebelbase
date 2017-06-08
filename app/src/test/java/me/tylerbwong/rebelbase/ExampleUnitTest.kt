@@ -8,7 +8,7 @@ import org.junit.Test
 
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
-class ExampleUnitTest {
+class ExampleUnitTest {w
     @Test
     @Throws(Exception::class)
     fun addition_isCorrect() {
