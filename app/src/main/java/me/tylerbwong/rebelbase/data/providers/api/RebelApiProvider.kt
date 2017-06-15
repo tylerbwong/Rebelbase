@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
  * *
  * @version 1.0
  */
-private var apiService: RebelApi? = getApiService()
+private var apiService: RebelApi = getApiService()
 private val CONNECTION_TIMEOUT: Long = 10
 
 /**
@@ -34,7 +34,7 @@ private val CONNECTION_TIMEOUT: Long = 10
 
  * @return An instance of a Game API service
  */
-fun getApiService(): RebelApi? {
+fun getApiService(): RebelApi {
     if (apiService == null) {
         apiService = Retrofit.Builder()
                 .baseUrl(BuildConfig.SERVER_ENDPOINT)
@@ -44,7 +44,6 @@ fun getApiService(): RebelApi? {
                 .build()
                 .create(RebelApi::class.java)
     }
-
     return apiService
 }
 

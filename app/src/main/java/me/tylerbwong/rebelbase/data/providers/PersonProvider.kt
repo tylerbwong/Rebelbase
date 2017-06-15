@@ -11,11 +11,11 @@ import me.tylerbwong.rebelbase.data.providers.api.getApiService
  * @author Tyler Wong
  */
 
-val personApiService: RebelApi? = getApiService()
+val personApiService: RebelApi = getApiService()
 
-fun getPerson(personId: Int): Single<Person> = personApiService!!.getPerson(personId)
+fun getPerson(personId: Int): Single<Person> = personApiService.getPerson(personId)
 
-fun getPeopleByPage(page: Int): Observable<PeopleResponse> = personApiService!!.getPeopleByPage(page)
+fun getPeopleByPage(page: Int): Observable<PeopleResponse> = personApiService.getPeopleByPage(page)
         .concatMap { response ->
             if (response.next == null) {
                 Observable.just(response)

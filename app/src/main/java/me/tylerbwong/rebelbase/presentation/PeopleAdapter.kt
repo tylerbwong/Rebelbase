@@ -29,6 +29,11 @@ class PeopleAdapter(people: MutableList<Person>) : RecyclerView.Adapter<PersonCa
         holder.mBirthYear.text = tempPerson.birthYear
     }
 
+    fun addPerson(person: Person) {
+        mPeople.add(person)
+        notifyItemInserted(mPeople.size - 1)
+    }
+
     override fun getItemCount(): Int {
         return mPeople.size
     }

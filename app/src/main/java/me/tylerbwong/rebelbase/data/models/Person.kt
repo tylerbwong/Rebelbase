@@ -1,19 +1,14 @@
 package me.tylerbwong.rebelbase.data.models
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
 /**
  * @author Tyler Wong
  */
-
-class Person(name: String, height: String, mass: String, hairColor: String, skinColor: String, eyeColor: String, birthYear: String, gender: String) {
-
-    var name: String? = null
-    var height: String? = null
-    var mass: String? = null
-    var hairColor: String? = null
-    var skinColor: String? = null
-    var eyeColor: String? = null
-    var birthYear: String? = null
-    var gender: String? = null
+@Entity
+data class Person(@PrimaryKey val name: String, val height: String, val mass: String, val hairColor: String,
+                  val skinColor: String, val eyeColor: String, val birthYear: String, val gender: String) {
 
     companion object Person {
         val NAME = "name"
@@ -24,16 +19,5 @@ class Person(name: String, height: String, mass: String, hairColor: String, skin
         val EYE_COLOR = "eye_color"
         val BIRTH_YEAR = "birth_year"
         val GENDER = "gender"
-    }
-
-    init {
-        this.name = name
-        this.height = height
-        this.mass = mass
-        this.hairColor = hairColor
-        this.skinColor = skinColor
-        this.eyeColor = eyeColor
-        this.birthYear = birthYear
-        this.gender = gender
     }
 }

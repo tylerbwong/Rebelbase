@@ -10,7 +10,7 @@ import java.lang.reflect.Type
  */
 class PeopleResponseConverter : JsonDeserializer<PeopleResponse> {
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): PeopleResponse {
-        val response: PeopleResponse = PeopleResponse
+        val response: PeopleResponse = PeopleResponse(0, "", mutableListOf<Person>())
         val jsonObject: JsonObject = json!!.asJsonObject
         val peopleArray: JsonArray = jsonObject[PeopleResponse.RESULTS].asJsonArray
 
@@ -19,8 +19,6 @@ class PeopleResponseConverter : JsonDeserializer<PeopleResponse> {
         if (!jsonObject[PeopleResponse.NEXT].isJsonNull) {
             response.next = jsonObject[PeopleResponse.NEXT].asString
         }
-
-        response.results = mutableListOf<Person>()
 
         var personJsonObject: JsonObject
         var person: Person
@@ -36,7 +34,7 @@ class PeopleResponseConverter : JsonDeserializer<PeopleResponse> {
                     personJsonObject[Person.EYE_COLOR].asString,
                     personJsonObject[Person.BIRTH_YEAR].asString,
                     personJsonObject[Person.GENDER].asString)
-                response.results!!.add(person)
+                response.results.add(person)
         }
         return response
     }

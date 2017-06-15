@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.2-3'
+    ext.kotlin_version = '1.1.2-5'
     repositories {
         jcenter()
     }
@@ -12,9 +12,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
+        google()
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }

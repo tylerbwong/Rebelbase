@@ -6,9 +6,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import butterknife.bindView
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import me.tylerbwong.rebelbase.R
 import me.tylerbwong.rebelbase.data.models.Person
+import me.tylerbwong.rebelbase.data.providers.database.getDatabase
 import me.tylerbwong.rebelbase.data.providers.getPeople
 
 class MainActivity : AppCompatActivity() {
@@ -29,13 +32,30 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        getPeople()
+        getDatabase(applicationContext)?.personDao()?.getPeopleCount() ?: Flowable.just(0)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ person ->
-                    mAdapter.mPeople.add(person)
-                    mAdapter.notifyItemInserted(mAdapter.mPeople.size - 1)
-                }, { e ->
-                    Log.e("", "", e)
-                })
+                .subscribe { count ->
+                    if (count > 0) {
+                        getDatabase(applicationContext)?.personDao()?.getAllPeople() ?: Flowable.just(listOf<Person>())
+                                .subscribeOn(Schedulers.io())
+                                .flatMapIterable { people -> people }
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({ person ->
+                                    mAdapter.addPerson(person)
+                                }, { e ->
+                                    Log.e("", "", e)
+                                })
+                    }
+                    else {
+                        getPeople()
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({ person ->
+                                    mAdapter.addPerson(person)
+                                }, { e ->
+                                    Log.e("", "", e)
+                                })
+                    }
+                }
     }
 }

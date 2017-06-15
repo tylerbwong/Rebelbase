@@ -5,12 +5,13 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author Tyler Wong
  */
-object PlanetResponse {
-    @SerializedName(COUNT) var count: Int? = null
-    @SerializedName(NEXT) var next: String? = null
-    @SerializedName(RESULTS) var results: MutableList<Planet>? = null
+data class PlanetResponse(@SerializedName(COUNT) var count: Int,
+                          @SerializedName(NEXT) var next: String,
+                          @SerializedName(RESULTS) var results: MutableList<Planet>) {
 
-    const val COUNT = "count"
-    const val NEXT = "next"
-    const val RESULTS = "results"
+    companion object PlanetResponse {
+        const val COUNT = "count"
+        const val NEXT = "next"
+        const val RESULTS = "results"
+    }
 }
