@@ -1,6 +1,10 @@
 package me.tylerbwong.rebelbase.presentation
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.view.ViewCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -24,18 +28,28 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
     }
 
     override fun onBindViewHolder(holder: PersonCardViewHolder, position: Int) {
-        val tempPerson: Person = people[position]
-        holder.name.text = tempPerson.name
-        holder.birthYear.text = tempPerson.birthYear
+        val person: Person = people[position]
+        holder.name.text = person.name
+        holder.birthYear.text = person.birthYear
 
         val options: RequestOptions = RequestOptions()
-                .centerCrop()
                 .dontAnimate()
 
         Glide.with(holder.itemView)
                 .load(images[position])
                 .apply(options)
                 .into(holder.image)
+
+        ViewCompat.setTransitionName(holder.image, images[position])
+
+        holder.image.setOnClickListener {
+            val intent = Intent(holder.itemView.context, PersonDetailActivity::class.java)
+            intent.putExtra("image", images[position])
+            intent.putExtra("name", person.name)
+            val transitionOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as AppCompatActivity, holder.image, ViewCompat.getTransitionName(holder.image))
+            holder.itemView.context.startActivity(intent, transitionOptions.toBundle())
+        }
     }
 
     fun addPerson(person: Person) {

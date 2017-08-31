@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(this.toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
+
         adapter = PeopleAdapter(mutableListOf(), resources.getStringArray(R.array.people_images))
         this.people.adapter = adapter
         this.people.addItemDecoration(ItemSpacingDecoration(resources.getDimension(R.dimen.item_spacing).toInt()))
