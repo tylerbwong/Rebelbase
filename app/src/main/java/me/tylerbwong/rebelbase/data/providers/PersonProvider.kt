@@ -1,3 +1,5 @@
+@file:JvmName("PersonProvider")
+
 package me.tylerbwong.rebelbase.data.providers
 
 import io.reactivex.Observable
@@ -11,7 +13,7 @@ import me.tylerbwong.rebelbase.data.providers.api.getApiService
  * @author Tyler Wong
  */
 
-val personApiService: RebelApi = getApiService()
+private val personApiService: RebelApi = getApiService()
 
 fun getPerson(personId: Int): Single<Person> = personApiService.getPerson(personId)
 
@@ -24,5 +26,5 @@ fun getPeopleByPage(page: Int): Observable<PeopleResponse> = personApiService.ge
         }
 
 fun getPeople(): Observable<Person> = getPeopleByPage(1)
-        .map { response -> response.results }
-        .flatMapIterable { people -> people }
+        .map { it.results }
+        .flatMapIterable { it }

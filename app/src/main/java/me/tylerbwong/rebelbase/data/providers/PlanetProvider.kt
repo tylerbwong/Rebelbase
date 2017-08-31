@@ -1,3 +1,5 @@
+@file:JvmName("PlanetProvider")
+
 package me.tylerbwong.rebelbase.data.providers
 
 import io.reactivex.Observable
@@ -11,11 +13,11 @@ import me.tylerbwong.rebelbase.data.providers.api.getApiService
  * @author Tyler Wong
  */
 
-val planetApiService: RebelApi? = getApiService()
+private val planetApiService: RebelApi = getApiService()
 
-fun getPlanet(planetId: Int): Single<Planet> = planetApiService!!.getPlanet(planetId)
+fun getPlanet(planetId: Int): Single<Planet> = planetApiService.getPlanet(planetId)
 
-fun getPlanetsByPage(page: Int): Observable<PlanetResponse> = personApiService!!.getPlanetsByPage(page)
+fun getPlanetsByPage(page: Int): Observable<PlanetResponse> = planetApiService.getPlanetsByPage(page)
         .concatMap { response ->
             if (response.next == null) {
                 Observable.just(response)

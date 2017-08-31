@@ -7,17 +7,17 @@ import android.view.View
 /**
  * @author Tyler Wong
  */
-class ItemSpacingDecoration(private var mSpace: Int) : RecyclerView.ItemDecoration() {
+class ItemSpacingDecoration(private var space: Int) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
-        outRect.top = mSpace
-        outRect.left = mSpace
-        outRect.right = mSpace
+        outRect.top = space
+        outRect.left = space
+        outRect.right = space
 
-        val itemCount: Int = state!!.itemCount
+        val itemCount: Int = state?.itemCount ?: 0
 
         if (itemCount > 0 && parent.getChildAdapterPosition(view) == itemCount - 1) {
-            outRect.bottom = mSpace
+            outRect.bottom = space
         }
     }
 }
