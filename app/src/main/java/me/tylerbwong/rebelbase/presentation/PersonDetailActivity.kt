@@ -1,13 +1,11 @@
 package me.tylerbwong.rebelbase.presentation
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.transition.Fade
 import android.transition.Transition
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import me.tylerbwong.rebelbase.R
