@@ -1,14 +1,15 @@
 package me.tylerbwong.rebelbase.presentation
 
-import android.content.Context
+import android.app.ActivityOptions
 import android.content.Intent
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import me.tylerbwong.rebelbase.R
@@ -46,8 +47,20 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
             val intent = Intent(holder.itemView.context, PersonDetailActivity::class.java)
             intent.putExtra("image", images[position])
             intent.putExtra("name", person.name)
-            val transitionOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    holder.itemView.context as AppCompatActivity, holder.image, ViewCompat.getTransitionName(holder.image))
+            val statusBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.statusBarBackground)
+            val navigationBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.navigationBarBackground)
+            val actionBar: View = (it.context as AppCompatActivity).findViewById(R.id.appBar)
+            ViewCompat.setTransitionName(actionBar, "actionBar")
+            val pairs: ArrayList<Pair<View, String>> = ArrayList()
+            pairs.add(Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME))
+            pairs.add(Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME))
+            pairs.add(Pair.create(actionBar, ViewCompat.getTransitionName(actionBar)))
+            pairs.add(Pair.create(holder.image, ViewCompat.getTransitionName(holder.image)))
+            val transitionOptions = ActivityOptions.makeSceneTransitionAnimation(holder.itemView.context as AppCompatActivity,
+                    Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME),
+                    Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME),
+                    Pair.create(actionBar, ViewCompat.getTransitionName(actionBar)),
+                    Pair.create(holder.image, ViewCompat.getTransitionName(holder.image)))
             holder.itemView.context.startActivity(intent, transitionOptions.toBundle())
         }
     }
