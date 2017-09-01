@@ -32,7 +32,7 @@ class PersonDetailActivity : AppCompatActivity() {
         ViewCompat.setTransitionName(this.appBar, "actionBar")
         ViewCompat.setTransitionName(this.image, imageUrl)
 
-        postponeEnterTransition()
+        supportPostponeEnterTransition()
 
         val decor: View = window.decorView
         decor.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -53,12 +53,12 @@ class PersonDetailActivity : AppCompatActivity() {
                 .apply(options)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        startPostponedEnterTransition()
+                        supportStartPostponedEnterTransition()
                         return false
                     }
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        startPostponedEnterTransition()
+                        supportStartPostponedEnterTransition()
                         return false
                     }
                 })
