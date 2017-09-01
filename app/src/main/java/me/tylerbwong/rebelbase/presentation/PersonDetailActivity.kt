@@ -29,7 +29,7 @@ class PersonDetailActivity : AppCompatActivity() {
 
         setSupportActionBar(this.toolbar)
         supportActionBar?.title = name
-        ViewCompat.setTransitionName(this.appBar, "actionBar")
+        ViewCompat.setTransitionName(this.appBar, "appBar")
         ViewCompat.setTransitionName(this.image, imageUrl)
 
         supportPostponeEnterTransition()

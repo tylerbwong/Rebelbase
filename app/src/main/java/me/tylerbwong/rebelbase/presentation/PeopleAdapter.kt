@@ -49,17 +49,17 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
             intent.putExtra("name", person.name)
             val statusBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.statusBarBackground)
             val navigationBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.navigationBarBackground)
-            val actionBar: View = (it.context as AppCompatActivity).findViewById(R.id.appBar)
-            ViewCompat.setTransitionName(actionBar, "actionBar")
+            val appBar: View = (it.context as AppCompatActivity).findViewById(R.id.appBar)
+            ViewCompat.setTransitionName(appBar, "appBar")
             val pairs: ArrayList<Pair<View, String>> = ArrayList()
             pairs.add(Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME))
             pairs.add(Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME))
-            pairs.add(Pair.create(actionBar, ViewCompat.getTransitionName(actionBar)))
+            pairs.add(Pair.create(appBar, ViewCompat.getTransitionName(appBar)))
             pairs.add(Pair.create(holder.image, ViewCompat.getTransitionName(holder.image)))
             val transitionOptions = ActivityOptions.makeSceneTransitionAnimation(holder.itemView.context as AppCompatActivity,
                     Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME),
                     Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME),
-                    Pair.create(actionBar, ViewCompat.getTransitionName(actionBar)),
+                    Pair.create(appBar, ViewCompat.getTransitionName(appBar)),
                     Pair.create(holder.image, ViewCompat.getTransitionName(holder.image)))
             holder.itemView.context.startActivity(intent, transitionOptions.toBundle())
         }
