@@ -18,11 +18,11 @@ private val personApiService: RebelApi = getApiService()
 fun getPerson(personId: Int): Single<Person> = personApiService.getPerson(personId)
 
 fun getPeopleByPage(page: Int): Observable<PeopleResponse> = personApiService.getPeopleByPage(page)
-        .concatMap { response ->
-            if (response.next == null) {
-                Observable.just(response)
+        .concatMap {
+            if (it.next == null) {
+                Observable.just(it)
             }
-            Observable.just(response).concatWith(getPeopleByPage(page + 1))
+            Observable.just(it).concatWith(getPeopleByPage(page + 1))
         }
 
 fun getPeople(): Observable<Person> = getPeopleByPage(1)

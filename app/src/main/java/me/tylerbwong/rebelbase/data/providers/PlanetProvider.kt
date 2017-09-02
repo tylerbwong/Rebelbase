@@ -18,13 +18,13 @@ private val planetApiService: RebelApi = getApiService()
 fun getPlanet(planetId: Int): Single<Planet> = planetApiService.getPlanet(planetId)
 
 fun getPlanetsByPage(page: Int): Observable<PlanetResponse> = planetApiService.getPlanetsByPage(page)
-        .concatMap { response ->
-            if (response.next == null) {
-                Observable.just(response)
+        .concatMap {
+            if (it.next == null) {
+                Observable.just(it)
             }
-            Observable.just(response).concatWith(getPlanetsByPage(page + 1))
+            Observable.just(it).concatWith(getPlanetsByPage(page + 1))
         }
 
 fun getPlanets(): Observable<Planet> = getPlanetsByPage(1)
-        .map { response -> response.results }
-        .flatMapIterable { planets -> planets }
+        .map { it.results }
+        .flatMapIterable { it }
