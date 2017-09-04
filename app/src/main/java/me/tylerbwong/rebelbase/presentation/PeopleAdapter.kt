@@ -30,8 +30,6 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
 
     override fun onBindViewHolder(holder: PersonCardViewHolder, position: Int) {
         val person: Person = people[position]
-        holder.name.text = person.name
-        holder.birthYear.text = person.birthYear
 
         val options: RequestOptions = RequestOptions()
                 .dontAnimate()
@@ -52,12 +50,6 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
             val navigationBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.navigationBarBackground)
             val appBar: View = (it.context as AppCompatActivity).findViewById(R.id.appBar)
             ViewCompat.setTransitionName(appBar, "appBar")
-
-            val pairs: ArrayList<Pair<View, String>> = ArrayList()
-            pairs.add(Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME))
-            pairs.add(Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME))
-            pairs.add(Pair.create(appBar, ViewCompat.getTransitionName(appBar)))
-            pairs.add(Pair.create(holder.image, ViewCompat.getTransitionName(holder.image)))
 
             val transitionOptions = ActivityOptions.makeSceneTransitionAnimation(holder.itemView.context as AppCompatActivity,
                     Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME),

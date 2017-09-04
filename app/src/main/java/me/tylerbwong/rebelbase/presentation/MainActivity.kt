@@ -2,7 +2,7 @@ package me.tylerbwong.rebelbase.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import me.tylerbwong.rebelbase.R
@@ -11,7 +11,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var adapter: PeopleAdapter
+    private lateinit var adapter: PeopleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = PeopleAdapter(mutableListOf(), resources.getStringArray(R.array.people_images))
         this.people.adapter = adapter
-        this.people.addItemDecoration(ItemSpacingDecoration(resources.getDimension(R.dimen.item_spacing).toInt()))
-        this.people.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        this.people.layoutManager = GridLayoutManager(this, 2)
 
         getPeople()
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,10 +1,16 @@
 package me.tylerbwong.rebelbase.data.models
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
 /**
  * @author Tyler Wong
  */
-data class Person(val name: String, val height: String, val mass: String, val hairColor: String,
+@Entity
+data class Person(@PrimaryKey val name: String, val height: String, val mass: String, val hairColor: String,
                   val skinColor: String, val eyeColor: String, val birthYear: String, val gender: String) {
+
+    var imageUrl:String? = null
 
     companion object {
         const val NAME = "name"
