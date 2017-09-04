@@ -6,7 +6,7 @@ package me.tylerbwong.rebelbase.data.models
 data class Person(val name: String, val height: String, val mass: String, val hairColor: String,
                   val skinColor: String, val eyeColor: String, val birthYear: String, val gender: String) {
 
-    companion object Person {
+    companion object {
         const val NAME = "name"
         const val HEIGHT = "height"
         const val MASS = "mass"
