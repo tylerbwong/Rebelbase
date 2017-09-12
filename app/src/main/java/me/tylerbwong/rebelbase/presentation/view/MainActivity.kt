@@ -1,17 +1,18 @@
-package me.tylerbwong.rebelbase.presentation
+package me.tylerbwong.rebelbase.presentation.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import me.tylerbwong.rebelbase.R
-import me.tylerbwong.rebelbase.data.providers.getPeople
-import timber.log.Timber
+import me.tylerbwong.rebelbase.data.models.Person
+import me.tylerbwong.rebelbase.presentation.view.people.PeopleAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var adapter: PeopleAdapter
+
+    private var presenter: MainContract.Presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +25,14 @@ class MainActivity : AppCompatActivity() {
         this.people.adapter = adapter
         this.people.layoutManager = GridLayoutManager(this, 2)
 
-        getPeople()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(adapter::addPerson, Timber::e)
+        presenter.subscribe()
+    }
+
+    override fun setPresenter(presenter: MainContract.Presenter) {
+        this.presenter = presenter
+    }
+
+    override fun addPerson(person: Person) {
+        adapter.addPerson(person)
     }
 }

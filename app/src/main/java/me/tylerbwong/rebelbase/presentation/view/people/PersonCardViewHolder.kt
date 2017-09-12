@@ -1,4 +1,4 @@
-package me.tylerbwong.rebelbase.presentation
+package me.tylerbwong.rebelbase.presentation.view.people
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

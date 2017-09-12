@@ -1,5 +1,6 @@
 package me.tylerbwong.rebelbase.data.api
 
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import me.tylerbwong.rebelbase.data.models.PeopleResponse
@@ -19,7 +20,7 @@ interface RebelApi {
     fun getPerson(@Path("personId") personId: Int): Single<Person>
 
     @GET("/api/people/")
-    fun getPeopleByPage(@Query("page") page: Int): Observable<PeopleResponse>
+    fun getPeopleByPage(@Query("page") page: Int): Flowable<PeopleResponse>
 
     @GET("/api/planets/{planetId}/")
     fun getPlanet(@Path("planetId") planetId: Int): Single<Planet>

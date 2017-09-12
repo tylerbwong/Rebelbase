@@ -1,4 +1,4 @@
-package me.tylerbwong.rebelbase.presentation
+package me.tylerbwong.rebelbase.presentation.view.custom
 
 import android.content.Context
 import android.util.AttributeSet

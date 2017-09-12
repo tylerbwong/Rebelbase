@@ -1,4 +1,4 @@
-package me.tylerbwong.rebelbase.presentation
+package me.tylerbwong.rebelbase.presentation.view.people
 
 import android.app.ActivityOptions
 import android.content.Intent
