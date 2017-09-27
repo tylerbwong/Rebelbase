@@ -8,7 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-beta6'
 
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.50'
     }
 }
 
@@ -31,7 +31,7 @@ task clean(type: Delete) {
 ext {
     espressoVersion = '2.2.2'
     junitVersion = '4.12'
-    kotlinVersion = '1.1.4-3'
+    kotlinVersion = '1.1.50'
     timberVersion = '4.5.1'
 
     constraintLayoutVersion = '1.0.2'
@@ -40,6 +40,6 @@ ext {
     retrofitVersion = '2.3.0'
     roomVersion = '1.0.0-alpha9-1'
     rxAndroidVersion = '2.0.1'
-    rxJavaVersion = '2.1.3'
+    rxJavaVersion = '2.1.4'
     supportLibVersion = '26.1.0'
 }
