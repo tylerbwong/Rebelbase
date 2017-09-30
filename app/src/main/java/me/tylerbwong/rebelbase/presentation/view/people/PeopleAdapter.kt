@@ -45,6 +45,8 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
             val intent = Intent(holder.itemView.context, PersonDetailActivity::class.java)
             intent.putExtra("image", images[position])
             intent.putExtra("name", person.name)
+            intent.putExtra("birthYear", person.birthYear)
+            intent.putExtra("mass", person.mass)
 
             val statusBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.statusBarBackground)
             val navigationBar: View = (it.context as AppCompatActivity).findViewById(android.R.id.navigationBarBackground)

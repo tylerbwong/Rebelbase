@@ -26,6 +26,12 @@ class PersonDetailActivity : AppCompatActivity() {
 
         val imageUrl = intent.getStringExtra("image")
         val name = intent.getStringExtra("name")
+        val birthYear = intent.getStringExtra("birthYear")
+        val mass = intent.getStringExtra("mass")
+
+        this.name.text = name
+        this.birthYear.text = birthYear
+        this.mass.text = mass
 
         setSupportActionBar(this.toolbar)
         supportActionBar?.title = name
