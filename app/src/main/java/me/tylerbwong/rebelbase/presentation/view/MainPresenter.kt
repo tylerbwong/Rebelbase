@@ -23,9 +23,7 @@ class MainPresenter(private val mainView: MainContract.View) : MainContract.Pres
                     if (numPeople > 0) {
                         val disposable = getLocalPeople()
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe( {
-                                    mainView.addPerson(it)
-                                }, Timber::e)
+                                .subscribe(mainView::addPerson, Timber::e)
                         disposables.add(disposable)
                     }
                     else {
