@@ -28,10 +28,7 @@ class MainPresenter(private val mainView: MainContract.View) : MainContract.Pres
                     }
                     else {
                         val disposable = getPeople()
-                                .map {
-                                    insertPerson(it)
-                                    it
-                                }
+                                .map { insertPerson(it) }
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(mainView::addPerson, Timber::e)
                         disposables.add(disposable)

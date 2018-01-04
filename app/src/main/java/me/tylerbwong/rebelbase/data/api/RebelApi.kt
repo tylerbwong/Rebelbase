@@ -15,16 +15,15 @@ import retrofit2.http.Query
  * @author Tyler Wong
  */
 interface RebelApi {
-
-    @GET("/api/people/{personId}/")
+    @GET("/people/{personId}/")
     fun getPerson(@Path("personId") personId: Int): Single<Person>
 
-    @GET("/api/people/")
+    @GET("/people/")
     fun getPeopleByPage(@Query("page") page: Int): Flowable<PeopleResponse>
 
-    @GET("/api/planets/{planetId}/")
+    @GET("/planets/{planetId}/")
     fun getPlanet(@Path("planetId") planetId: Int): Single<Planet>
 
-    @GET("/api/planets/")
+    @GET("/planets/")
     fun getPlanetsByPage(@Query("page") page: Int): Observable<PlanetResponse>
 }

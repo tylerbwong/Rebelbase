@@ -14,7 +14,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -25,27 +24,19 @@ import java.util.concurrent.TimeUnit
  * *
  * @version 1.0
  */
-private var apiService: RebelApi = getApiService()
-private val CONNECTION_TIMEOUT: Long = 10
+object RebelApiImpl {
+    var apiService: RebelApi = Retrofit.Builder()
+            .baseUrl(BuildConfig.SERVER_ENDPOINT)
+            .client(makeOkHttpClient())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .addConverterFactory(GsonConverterFactory.create(setupGson()))
+            .build()
+            .create(RebelApi::class.java)
 
-/**
- * This method provides and handles the creation of
- * the Game API service.
-
- * @return An instance of a Game API service
- */
-fun getApiService(): RebelApi {
-    if (apiService == null) {
-        apiService = Retrofit.Builder()
-                .baseUrl(BuildConfig.SERVER_ENDPOINT)
-                .client(makeOkHttpClient())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                .addConverterFactory(GsonConverterFactory.create(setupGson()))
-                .build()
-                .create(RebelApi::class.java)
-    }
-    return apiService
 }
+
+val apiService: RebelApi = RebelApiImpl.apiService
+private const val CONNECTION_TIMEOUT: Long = 10
 
 /**
  * This method provides and handles the creation of an OkHttpClient.
@@ -60,14 +51,7 @@ private fun makeOkHttpClient(): OkHttpClient {
             .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
 
     if (BuildConfig.DEBUG) {
-        try {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            okHttpClientBuilder.addInterceptor(interceptor)
-        }
-        catch (e: IOException) {
-
-        }
+        okHttpClientBuilder.addInterceptor(HttpLoggingInterceptor())
     }
 
     return okHttpClientBuilder.build()

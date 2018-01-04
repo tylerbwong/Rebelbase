@@ -4,22 +4,19 @@ package me.tylerbwong.rebelbase.data.providers
 
 import io.reactivex.Observable
 import io.reactivex.Single
-import me.tylerbwong.rebelbase.data.api.RebelApi
 import me.tylerbwong.rebelbase.data.models.Planet
 import me.tylerbwong.rebelbase.data.models.PlanetResponse
-import me.tylerbwong.rebelbase.data.providers.api.getApiService
+import me.tylerbwong.rebelbase.data.providers.api.apiService
 
 /**
  * @author Tyler Wong
  */
 
-private val planetApiService: RebelApi = getApiService()
+fun getPlanet(planetId: Int): Single<Planet> = apiService.getPlanet(planetId)
 
-fun getPlanet(planetId: Int): Single<Planet> = planetApiService.getPlanet(planetId)
-
-fun getPlanetsByPage(page: Int): Observable<PlanetResponse> = planetApiService.getPlanetsByPage(page)
+fun getPlanetsByPage(page: Int): Observable<PlanetResponse> = apiService.getPlanetsByPage(page)
         .concatMap {
-            if (it.next == null) {
+            if (it.count == 0) {
                 Observable.just(it)
             }
             Observable.just(it).concatWith(getPlanetsByPage(page + 1))

@@ -18,10 +18,8 @@ import me.tylerbwong.rebelbase.data.models.Person
 /**
  * @author Tyler Wong
  */
-class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : RecyclerView.Adapter<PersonCardViewHolder>() {
-
-    private var people: MutableList<Person> = people
-    private val images: Array<String> = images
+class PeopleAdapter(private var people: MutableList<Person>, private val images: Array<String>) :
+        RecyclerView.Adapter<PersonCardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PersonCardViewHolder {
         val view: View = LayoutInflater.from(parent!!.context).inflate(R.layout.person_card, parent, false)
@@ -29,7 +27,7 @@ class PeopleAdapter(people: MutableList<Person>, images: Array<String>) : Recycl
     }
 
     override fun onBindViewHolder(holder: PersonCardViewHolder, position: Int) {
-        val person: Person = people[position]
+        val person = people[position]
 
         val options: RequestOptions = RequestOptions()
                 .dontAnimate()

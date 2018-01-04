@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
 
     defaultConfig {
         applicationId "me.tylerbwong.rebelbase"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,14 +21,14 @@ android {
             debuggable true
             minifyEnabled false
             testCoverageEnabled true
-            buildConfigField "String", "SERVER_ENDPOINT", "\"https://swapi.co/\""
+            buildConfigField "String", "SERVER_ENDPOINT", "\"https://swapi.co/api\""
         }
 
         release {
             debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_ENDPOINT", "\"https://swapi.co/\""
+            buildConfigField "String", "SERVER_ENDPOINT", "\"https://swapi.co/api\""
         }
     }
 

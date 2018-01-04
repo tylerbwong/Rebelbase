@@ -10,15 +10,19 @@ import java.lang.reflect.Type
  */
 class PeopleResponseConverter : JsonDeserializer<PeopleResponse> {
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): PeopleResponse {
-        val response: PeopleResponse = PeopleResponse(0, "", mutableListOf<Person>())
+        val response = PeopleResponse(0, "", mutableListOf())
         val jsonObject: JsonObject = json!!.asJsonObject
-        val peopleArray: JsonArray = jsonObject[PeopleResponse.RESULTS].asJsonArray
-
-        response.count = jsonObject[PeopleResponse.COUNT].asInt
 
         if (!jsonObject[PeopleResponse.NEXT].isJsonNull) {
             response.next = jsonObject[PeopleResponse.NEXT].asString
         }
+        else {
+            return response
+        }
+
+        val peopleArray: JsonArray = jsonObject[PeopleResponse.RESULTS].asJsonArray
+
+        response.count = jsonObject[PeopleResponse.COUNT].asInt
 
         var personJsonObject: JsonObject
         var person: Person
